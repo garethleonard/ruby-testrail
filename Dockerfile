@@ -9,7 +9,7 @@ RUN gem install nexus
 
 ADD ./Gemfile Gemfile
 ADD ./lib lib
-ADD ./testrail_integration.gemspec.gemspec testrail_integration.gemspec.gemspec
+ADD ./testrail_integration.gemspec testrail_integration.gemspec
 ADD ./deploy.sh deploy.sh
 ADD ./nexus.conf.erb nexus.conf.erb
 

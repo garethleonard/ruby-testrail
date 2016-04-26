@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name        = 'testrail-integration'
-  spec.version     = '1.0.0'
+  spec.version     = '1.0.1'
   spec.date        = '2016-04-26'
   spec.summary     = "TestRail integration"
   spec.description = "Library to integrate Test libraries with TestRail"
