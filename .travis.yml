@@ -1,9 +1,16 @@
 language: ruby
 rvm:
-  - 2.2
+- 2.2
 before_install: gem update --remote bundler
 install:
-  - bundle install --retry=3
+- bundle install --retry=3
 script:
-  - bundle exec rubocop features lib
-  - bundle exec cucumber features
+- bundle exec rubocop features lib
+- bundle exec cucumber features
+- gem build cucumber_testrail.gemspec
+deploy:
+  provider: rubygems
+  api_key:
+    secure: DcF9uIbKdFzbKdz6xbYBbauG0dBV90i+HQRxpl41sz9hua/tfEkNtWCKa1A15xD4MhSkeKNkwwM3Axm/OA8Fp63nc9dHPTd3mcWwL0CmmKVAlolgbdHvTr04Vz0s1M9dV4w0XBhX/M/Vezi23MoHT2Z3B0YvYnbBVQEtIH+t5CPcY5tWXm/Dyz3J8CGhuO4oboW906K3MVBRqclz/njM3PXezNwOXrNGVyOnr94WTDXG857qzZnr2p1U1gRVCX7eyHIY6/pgxuejfcIkXS8c7WZ8tYuyc4xfcHGMdpHdFRRXuf7anpGikFPz2Qw2r2uaDhVAUzRgXjTF9JfYPPyDP3iZHVXa+G+jMHhXCCNPX85D4mfQz87okNH1PelRv2U9kZv3sxxtuIuOAwuKS+fWAc/dmhf7Q5PWROxGLzkwjbzqfQGz6Ia2jTvv+c4/1hyZLLctwf6Mq4E/XOqiU0ebjY77xhuMghtEscCp6D+HfD0p2GXiNbUfIPpczNZYZ2mv/kova7hExaldcrV0hE3y2OhxmxPEishjWm43wtoPXbpyK3w7Rm2mJXQk8OhwYpOh+OKg33GOBzI221KLnPvnip0vQ5Zw8FZuVH3ygyX4JA2WiqM2JKaqFTGzcNwMJdL6rDG61jKpVv7Hb8mO8zGWtew5FEwjdD6ypVtx5h4LqE4=
+  on:
+    tags: true
