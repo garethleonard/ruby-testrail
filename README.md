@@ -17,7 +17,7 @@ by the server.
 Just include the gem in your Gemfile
 
 ```ruby
-gem 'testrail-integration'
+gem 'cucumber-testrail'
 ```
 
 ### Usage
