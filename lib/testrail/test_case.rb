@@ -7,8 +7,8 @@ module TestRail
     attr_reader :id, :name, :section
 
     def initialize(id:, name:, section:, testrail_client:)
-      fail(ArgumentError, 'test case id nil') if id.nil?
-      fail(ArgumentError, 'test case name nil') if name.nil?
+      raise(ArgumentError, 'test case id nil') if id.nil?
+      raise(ArgumentError, 'test case name nil') if name.nil?
       @id = id
       @name = name
       @section = section

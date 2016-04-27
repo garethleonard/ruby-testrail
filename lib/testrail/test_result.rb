@@ -7,7 +7,7 @@ module TestRail
 
     attr_reader :comment
     attr_reader :success
-    alias_method :success?, :success
+    alias success? success
 
     def initialize(test_case:, success:, comment:)
       @test_case = test_case

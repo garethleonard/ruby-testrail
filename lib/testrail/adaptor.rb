@@ -7,6 +7,7 @@ module TestRail
 
     def initialize(
       enabled: false,
+      test_suite: nil,
       url:,
       username:,
       password:,
@@ -15,13 +16,17 @@ module TestRail
     )
       @enabled = enabled
       return unless @enabled
-      testrail_client = TestRail::APIClient.new(url)
-      testrail_client.user = username
-      testrail_client.password = password
-      @test_suite = TestRail::TestRailClient.new(testrail_client).get_suite(
-        project_id: project_id,
-        suite_id: suite_id
-      )
+      if test_suite.nil?
+        testrail_client = TestRail::APIClient.new(url)
+        testrail_client.user = username
+        testrail_client.password = password
+        @test_suite = TestRail::TestRailClient.new(testrail_client).get_suite(
+          project_id: project_id,
+          suite_id: suite_id
+        )
+      else
+        @test_suite = test_suite
+      end
     end
 
     # Submits an example test results

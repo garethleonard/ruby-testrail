@@ -10,9 +10,9 @@ module TestRail
 
     def add_test_result(section_name:, test_name:, success:, comment: nil)
       @results << @suite
-        .get_or_create_section(section_name)
-        .get_or_create_test_case(test_name)
-        .create_result(success: success, comment: comment)
+                  .get_or_create_section(section_name)
+                  .get_or_create_test_case(test_name)
+                  .create_result(success: success, comment: comment)
     end
 
     def submit_results

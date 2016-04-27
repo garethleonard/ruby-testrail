@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name        = 'cucumber-testrail'
-  spec.version     = '0.0.2'
+  spec.version     = '0.0.3'
   spec.date        = '2016-04-26'
   spec.summary     = 'Cucumber TestRail integration'
   spec.description = 'Library to integrate Test Suite with TestRail'
@@ -11,8 +11,10 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://github.com/Findly-Inc/cucumber-testrail'
   spec.add_development_dependency 'rake', '>= 0.9.2'
   spec.add_development_dependency 'rspec', '>= 3.0'
-  spec.add_development_dependency 'simplecov', '>= 0.6.2'
-  spec.add_development_dependency 'coveralls', '~> 0.7'
-  spec.add_development_dependency 'syntax', '>= 1.0.0'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rspec-core'
+  spec.add_development_dependency 'rspec-expectations'
+  spec.add_development_dependency 'rspec-mocks'
+  spec.add_development_dependency 'rspec-support'
+  spec.add_development_dependency 'require_all'
 end

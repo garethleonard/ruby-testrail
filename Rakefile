@@ -1,13 +1,12 @@
 # encoding: utf-8
 require 'rubygems'
 require 'bundler'
-Bundler::GemHelper.install_tasks
+require 'cucumber'
+require 'cucumber/rake/task'
 
-require 'rake/testtask'
-
-Rake::TestTask.new do |t|
-  t.libs << 'test'
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = "features --format pretty"
 end
 
 desc "Run tests"
-task :default => :test
+task :default => :features

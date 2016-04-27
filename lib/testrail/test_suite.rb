@@ -11,14 +11,14 @@ module TestRail
       @suite_id = suite_id
       @testrail_client = testrail_client
       sections = testrail_client.get_sections(project_id: project_id, suite_id: suite_id)
-                 .map { |s| new_test_section(s) }
+                                .map { |s| new_test_section(s) }
       @sections_by_name = Hash[sections.map { |s| [s.name, s] }]
       @sections_by_id = Hash[sections.map { |s| [s.id, s] }]
       @test_cases = Hash[testrail_client.get_test_cases(project_id: project_id, suite_id: suite_id)
-                         .lazy
-                         .map { |t| new_test_case(t) }
-                         .map { |t| [test_case_key(t.section.id, t.name), t] }
-                         .to_a]
+                                        .lazy
+                                        .map { |t| new_test_case(t) }
+                                        .map { |t| [test_case_key(t.section.id, t.name), t] }
+                    .to_a]
     end
 
     def start_test_run

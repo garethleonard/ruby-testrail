@@ -1,3 +1,6 @@
+AllCops:
+  TargetRubyVersion: 2.2
+
 Lint/UnusedBlockArgument:
   Enabled: false
 
@@ -11,7 +14,7 @@ Metrics/MethodLength:
   Enabled: false
 
 Metrics/ParameterLists:
-  Max: 6
+  Max: 7
 
 Metrics/ClassLength:
   Enabled: false
