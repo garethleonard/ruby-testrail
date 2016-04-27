@@ -1,19 +1,27 @@
 require 'testrail/api_client'
-require 'testrail/testrail'
+require 'testrail/testrail_client'
 
 module TestRail
 
-  class Runner
+  class Adaptor
 
-    def initialize(options:)
-      @enabled = options['TESTRAIL_ENABLED']
+    def initialize(
+      enabled: false,
+      url:,
+      username:,
+      password:,
+      project_id:,
+      suite_id:
+    )
+      @enabled = enabled
       return unless @enabled
-      testrail_client = TestRail::APIClient.new(options['TESTRAIL_URL'])
-      testrail_client.user = options['TESTRAIL_USER']
-      testrail_client.password = options['TESTRAIL_PASS']
+      testrail_client = TestRail::APIClient.new(url)
+      testrail_client.user = username
+      testrail_client.password = password
       @test_suite = TestRail::TestRailClient.new(testrail_client).get_suite(
-        project_id: options['TESTRAIL_PROJECT_ID'],
-        suite_id: options['TESTRAIL_SUITE_ID'])
+        project_id: project_id,
+        suite_id: suite_id
+      )
     end
 
     # Submits an example test results

@@ -6,10 +6,8 @@
 # http://docs.gurock.com/testrail-api2/start
 # http://docs.gurock.com/testrail-api2/accessing
 #
-# Copyright Gurock Software GmbH. See license.md for details.
+# Copyright Gurock Software GmbH. See TESTRAIL_LICENSE.md for details.
 #
-# There is no rubygem for the new Testrails API yet, meanwhile,
-# we have to use this class to access it
 
 require 'net/http'
 require 'net/https'
@@ -28,7 +26,7 @@ module TestRail
     attr_accessor :password
 
     def initialize(base_url)
-      base_url += base_url.match(/\/$/) ? '/' : ''
+      base_url += base_url.match(%r{/$}) ? '/' : ''
       @url = base_url + 'index.php?/api/v2/'
     end
 
