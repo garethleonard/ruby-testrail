@@ -9,4 +9,10 @@ Gem::Specification.new do |spec|
   spec.license     = 'Apache-2.0'
   spec.files       = `find lib -type f`.split("\n")
   spec.homepage    = 'https://github.com/Findly-Inc/cucumber-testrail'
+  spec.add_development_dependency 'rake', '>= 0.9.2'
+  spec.add_development_dependency 'rspec', '>= 3.0'
+  spec.add_development_dependency 'simplecov', '>= 0.6.2'
+  spec.add_development_dependency 'coveralls', '~> 0.7'
+  spec.add_development_dependency 'syntax', '>= 1.0.0'
+  spec.add_development_dependency 'pry'
 end
