@@ -7,7 +7,6 @@ install:
 script:
 - bundle exec rubocop features lib
 - bundle exec cucumber features
-- gem build cucumber_testrail.gemspec
 deploy:
   provider: rubygems
   api_key:
