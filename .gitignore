@@ -1,3 +1,4 @@
 vendor
 *.gem
 nexus.conf
+Gemfile.lock
