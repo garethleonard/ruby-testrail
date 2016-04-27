@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name        = 'cucumber-testrail'
-  spec.version     = '0.0.3'
+  spec.version     = '0.0.4'
   spec.date        = '2016-04-26'
   spec.summary     = 'Cucumber TestRail integration'
   spec.description = 'Library to integrate Test Suite with TestRail'

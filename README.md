@@ -1,3 +1,6 @@
+###Status
+[![Build Status](https://travis-ci.org/Findly-Inc/cucumber-testrail.png)](https://travis-ci.org/Findly-Inc/cucumber-testrail)
+
 TestRail Integration Adaptor
 ============================
 
