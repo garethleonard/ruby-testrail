@@ -46,7 +46,7 @@ module TestRail
     # A new test result is submitted to TestRails. The type of test depends on the Test Suite
     # Each adaptor implementation should be able to determine the required information
     # from the test provided as a parameter
-    def submit(test)
+    def submit(_test)
       raise 'submit should be overrided by Adaptor implementations'
     end
 
@@ -74,15 +74,16 @@ module TestRail
       section_name:,
       test_name:,
       success:,
-      comment: 
+      comment:
     )
-    @test_run.add_test_result(
-      section_name: section_name,
-      test_name: test_name,
-      success: success,
-      comment: comment
-    )
+      @test_run.add_test_result(
+        section_name: section_name,
+        test_name: test_name,
+        success: success,
+        comment: comment
+      )
     end
+
   end
 
 end
