@@ -1,5 +1,8 @@
-###Status
-[![Build Status](https://travis-ci.org/Findly-Inc/cucumber-testrail.png)](https://travis-ci.org/Findly-Inc/cucumber-testrail)
+### Status
+[![Build Status](https://travis-ci.org/Findly-Inc/ruby-testrail.png)](https://travis-ci.org/Findly-Inc/ruby-testrail)
+
+### Supported Ruby Version
+2.2
 
 TestRail Integration Adaptor
 ============================
@@ -17,7 +20,7 @@ by the server.
 Just include the gem in your Gemfile
 
 ```ruby
-gem 'cucumber-testrail'
+gem 'ruby-testrail'
 ```
 
 ### Usage
