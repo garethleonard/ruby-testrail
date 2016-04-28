@@ -1,3 +1,17 @@
+# Copyright 2016 Findly Inc. NZ
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 require 'testrail/api_client'
 require 'testrail/testrail_client'
 
@@ -6,7 +20,7 @@ module TestRail
   class Adaptor
 
     def initialize(
-      enabled: false,
+      enabled: true,
       test_suite: nil,
       url:,
       username:,
@@ -29,51 +43,16 @@ module TestRail
       end
     end
 
-    # Submits an example test results
-    # If the test case exists, it will reuse the id, otherwise it will create a new Test Case in TestRails
-    # @param example [Example] A test case example after execution
-    def submit(example)
-      return unless @enabled
-      case example.class.name
-      when 'Cucumber::RunningTestCase::ScenarioOutlineExample'
-        test_case_section = example.scenario_outline.feature.name
-        test_case_section.strip!
-
-        test_case_name = example.scenario_outline.name
-        test_case_name.strip!
-
-        test_result = !example.failed?
-        test_comment = example.exception
-      when 'Cucumber::RunningTestCase::Scenario'
-        test_case_section = example.feature.name
-        test_case_section.strip!
-
-        test_case_name = example.name
-        test_case_name.strip!
-
-        test_result = !example.failed?
-        test_comment = example.exception
-      when 'RSpec::Core::Example'
-        test_case_section = example.example_group.description
-        test_case_section.strip!
-
-        test_case_name = example.description
-        test_case_name.strip!
-
-        test_result = example.exception.nil?
-        test_comment = example.exception
-      end
-
-      @test_run.add_test_result(
-        section_name: test_case_section,
-        test_name: test_case_name,
-        success: test_result,
-        comment: test_comment)
+    # A new test result is submitted to TestRails. The type of test depends on the Test Suite
+    # Each adaptor implementation should be able to determine the required information
+    # from the test provided as a parameter
+    def submit(_test)
+      raise 'submit should be overrided by Adaptor implementations'
     end
 
     # This method initiates a test run against a project, and specified testsuite.
-    # ruby functional test file (.rb) containing a range of rspec test cases.
-    # Each rspec test case (in the ruby functional test file) will have a corresponding Test Case in TestRail.
+    # ruby functional test file (.rb) containing a range of test cases.
+    # Each test case (in the ruby functional test file) will have a corresponding Test Case in TestRail.
     # These Test Rail test cases will belong to a test suite that has the title of the corresponding
     # ruby functional test file.
     def start_test_run

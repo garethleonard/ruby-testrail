@@ -1,7 +1,21 @@
-def setup_adaptor(enabled: true)
+# Copyright 2016 Findly Inc. NZ
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+def setup_adaptor(enabled: true, type: 'Cucumber')
   @test_suite = spy('test_suite')
   @enabled = enabled
-  @adaptor = TestRail::Adaptor.new(
+  options = {
     enabled: @enabled,
     url: 'fakeurl',
     username: 'username',
@@ -9,7 +23,13 @@ def setup_adaptor(enabled: true)
     project_id: 'project_id',
     suite_id: 'suite_id',
     test_suite: @test_suite
-  )
+  }
+  @adaptor = case type
+             when 'RSpec'
+               TestRail::RSpecAdaptor.new(options)
+             else
+               TestRail::CucumberAdaptor.new(options)
+             end
 end
 
 def create_test_result(type, test_case_result: true)
@@ -42,7 +62,6 @@ def create_test_result(type, test_case_result: true)
     allow(test_result).to receive(:exception) { @test_case_comment }
     allow(feature).to receive(:name) { @test_case_section }
   when 'RSpec Example'
-    class_name = 'RSpec::Core::Example'
     example_group = double('example_group')
 
     allow(test_result).to receive(:example_group) { example_group }
@@ -56,13 +75,19 @@ def create_test_result(type, test_case_result: true)
     allow(example_group).to receive(:description) { @test_case_section }
   end
 
-  allow(test_result).to receive(:class) { result_class }
-  allow(result_class).to receive(:name) { class_name }
+  unless result_class.nil?
+    allow(test_result).to receive(:class) { result_class }
+    allow(result_class).to receive(:name) { class_name }
+  end
   test_result
 end
 
-Given(/^an Adaptor$/) do
+Given(/^a Cucumber Adaptor$/) do
   setup_adaptor
+end
+
+Given(/^a RSpec Adaptor$/) do
+  setup_adaptor(type: 'RSpec')
 end
 
 When(/^a test run is started$/) do
@@ -100,7 +125,7 @@ Then(/^the test suite is not closed$/) do
   expect(@test_run).to_not have_received(:close)
 end
 
-Given(/^a disabled Adaptor$/) do
+Given(/^a disabled Cucumber Adaptor$/) do
   setup_adaptor(enabled: false)
 end
 
