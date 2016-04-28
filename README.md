@@ -25,11 +25,12 @@ gem 'ruby-testrail'
 
 ### Usage
 
-Create a Test Adaptor with the required configuration
+Create a Test Adaptor with the required configuration. In this case a [CucumberAdaptor](lib/testrail/cucumber_adaptor.rb)
+is used ([RSpecAdaptor](lib/testrail/rspec_adaptor.rb) is also available)
 
 ```ruby
-testrail_adaptor = TestRail::Adaptor.new(
-  enabled: flag,          # Enable or Disable the TestRail runner(default: false)
+testrail_adaptor = TestRail::CucumberAdaptor.new(
+  enabled: flag,          # Enable or Disable the TestRail runner(default: true)
   url: url,               # URL for custom TestRail Integration
   username: username,     # Authentication Username
   password: password,     # Authentication Password
@@ -61,3 +62,25 @@ end
 
 At the end of the test suite the adaptor needs to be finished to send the results
 to TestRail. This is done with the **end_test_run** method.
+
+
+Custom Adaptor
+==============
+
+A cusom adaptor could be created. It just needs to extend the base TestRail adaptor
+and determine the data that is going to be sent to TestRail:
+
+  - section_name: The name of the section to group test cases in TestRail
+  - test_name:    The name of the particular test case
+  - success:      The result of the test
+  - comment:      A comment describing the test
+
+For example implementations check [CucumberAdaptor](lib/testrail/cucumber_adaptor.rb)
+or [RSpecAdaptor](lib/testrail/rspec_adaptor.rb)
+
+TODO
+====
+
+ - Unit test for all classes
+ - Configurable test run start and end
+ - Functional Test again a real TestRail integration project

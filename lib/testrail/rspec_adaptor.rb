@@ -26,11 +26,12 @@ module TestRail
       test_result = example.exception.nil?
       test_comment = example.exception
 
-      @test_run.add_test_result(
+      submit_test_result(
         section_name: test_case_section,
         test_name: test_case_name,
         success: test_result,
-        comment: test_comment)
+        comment: test_comment
+      )
     end
 
   end
