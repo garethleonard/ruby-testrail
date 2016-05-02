@@ -25,11 +25,13 @@ module TestRail
       return unless @enabled
       case scenario.class.name
       when 'Cucumber::RunningTestCase::ScenarioOutlineExample'
+      when 'Cucumber::Ast::ScenarioOutline'
         test_case_section = scenario.scenario_outline.feature.name.strip
         test_case_name = scenario.scenario_outline.name.strip
         test_result = !scenario.failed?
         test_comment = scenario.exception
       when 'Cucumber::RunningTestCase::Scenario'
+      when 'Cucumber::Ast::Scenario'
         test_case_section = scenario.feature.name.strip
         test_case_name = scenario.name.strip
         test_result = !scenario.failed?
