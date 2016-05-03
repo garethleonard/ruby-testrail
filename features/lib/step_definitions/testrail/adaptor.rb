@@ -39,14 +39,17 @@ def create_test_result(type, test_case_result: true)
   @test_case_section = 'test_case_section'
   @test_case_name = 'test_case_name'
   @test_case_comment = 'test_case_comment'
+  @example_name = nil
 
   case type
   when 'Cucumber Scenario Outline'
     class_name = 'Cucumber::RunningTestCase::ScenarioOutlineExample'
     scenario_outline = double('scenario_outline')
     feature = double('feature')
+    @example_name = 'example_name'
 
     allow(test_result).to receive(:scenario_outline) { scenario_outline }
+    allow(test_result).to receive(:name) { @example_name }
     allow(test_result).to receive(:failed?) { !test_case_result }
     allow(test_result).to receive(:exception) { @test_case_comment }
     allow(scenario_outline).to receive(:feature) { feature }
@@ -143,9 +146,10 @@ end
 
 Then(/^the submitted results contains the provided details/) do
   expect(@test_run).to have_received(:submit_results)
+
   expect(@test_run).to have_received(:add_test_result).with({
     section_name: @test_case_section,
-    test_name: @test_case_name,
+    test_name: if @example_name.nil? then @test_case_name else "#{@test_case_name} #{@example_name}" end,
     success: true,
     comment: @test_case_comment
   })
