@@ -149,7 +149,7 @@ Then(/^the submitted results contains the provided details/) do
 
   expect(@test_run).to have_received(:add_test_result).with({
     section_name: @test_case_section,
-    test_name: if @example_name.nil? then @test_case_name else "#{@test_case_name} #{@example_name}" end,
+    test_name: @example_name.nil? ? @test_case_name : "#{@test_case_name} #{@example_name}",
     success: true,
     comment: @test_case_comment
   })
