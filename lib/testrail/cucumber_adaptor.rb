@@ -20,36 +20,38 @@ module TestRail
     # Submits an scenario test results
     # If the test case exists, it will reuse the id, otherwise it will create a new Test Case in TestRails
     # @param scenario [Cucumber Scenario|Cucumber Scenario Outline] A test case scenario after execution
-    def submit(scenario)
+    def submit(scenario, elapsed)
       return unless @enabled
       case scenario.class.name
       when 'Cucumber::RunningTestCase::ScenarioOutlineExample'
-        test_results = resolve_from_scenario_outline(scenario)
+        test_results = resolve_from_scenario_outline(scenario, elapsed)
       when 'Cucumber::Ast::OutlineTable::ExampleRow'
-        test_results = resolve_from_scenario_outline(scenario)
+        test_results = resolve_from_scenario_outline(scenario, elapsed)
       when 'Cucumber::RunningTestCase::Scenario'
-        test_results = resolve_from_simple_scenario(scenario)
+        test_results = resolve_from_simple_scenario(scenario, elapsed)
       when 'Cucumber::Ast::Scenario'
-        test_results = resolve_from_simple_scenario(scenario)
+        test_results = resolve_from_simple_scenario(scenario, elapsed)
       end
       submit_test_result(test_results)
     end
 
-    def resolve_from_scenario_outline(scenario)
+    def resolve_from_scenario_outline(scenario, elapsed)
       {
         section_name: scenario.scenario_outline.feature.name.strip,
         test_name: "#{scenario.scenario_outline.name.strip} #{scenario.name.strip}",
         success: !scenario.failed?,
-        comment: scenario.exception
+        comment: scenario.exception,
+        elapsed: elapsed
       }
     end
 
-    def resolve_from_simple_scenario(scenario)
+    def resolve_from_simple_scenario(scenario, elapsed)
       {
         section_name: scenario.feature.name.strip,
         test_name: scenario.name.strip,
         success: !scenario.failed?,
-        comment: scenario.exception
+        comment: scenario.exception,
+        elapsed: elapsed
       }
     end
 

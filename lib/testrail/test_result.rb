@@ -21,12 +21,14 @@ module TestRail
 
     attr_reader :comment
     attr_reader :success
+    attr_reader :elapsed
     alias success? success
 
-    def initialize(test_case:, success:, comment:)
+    def initialize(test_case:, success:, comment:, elapsed:)
       @test_case = test_case
       @success = success
       @comment = comment
+      @elapsed = elapsed
     end
 
     def status_id
@@ -37,7 +39,8 @@ module TestRail
       {
         'case_id': @test_case.id,
         'status_id': status_id,
-        'comment': comment
+        'comment': comment,
+        'elapsed': elapsed
       }
     end
 

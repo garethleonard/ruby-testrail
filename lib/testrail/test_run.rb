@@ -22,7 +22,7 @@ module TestRail
       @results = []
     end
 
-    def add_test_result(section_name:, test_name:, success:, comment: nil)
+    def add_test_result(section_name:, test_name:, success:, comment: nil, elapsed:)
       @results << @suite
                   .get_or_create_section(section_name)
                   .get_or_create_test_case(test_name)

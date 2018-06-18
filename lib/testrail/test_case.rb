@@ -29,8 +29,8 @@ module TestRail
       @testrail_client = testrail_client
     end
 
-    def create_result(success:, comment:)
-      TestResult.new(test_case: self, success: success, comment: comment)
+    def create_result(success:, comment:, elapsed:)
+      TestResult.new(test_case: self, success: success, comment: comment, elapsed: elapsed)
     end
 
   end

@@ -74,13 +74,15 @@ module TestRail
       section_name:,
       test_name:,
       success:,
-      comment:
+      comment:,
+      elapsed:
     )
       @test_run.add_test_result(
         section_name: section_name,
         test_name: test_name,
         success: success,
-        comment: comment
+        comment: comment,
+        elapsed: elapsed
       )
     end
 
