@@ -20,7 +20,8 @@ module TestRail
     # Submits an scenario test results
     # If the test case exists, it will reuse the id, otherwise it will create a new Test Case in TestRails
     # @param scenario [Cucumber Scenario|Cucumber Scenario Outline] A test case scenario after execution
-    def submit(scenario, elapsed)
+    # @param elapsed Execution Time of Scenario
+    def submit(scenario:, elapsed:)
       return unless @enabled
       case scenario.class.name
       when 'Cucumber::RunningTestCase::ScenarioOutlineExample'
