@@ -26,7 +26,7 @@ module TestRail
       @results << @suite
                   .get_or_create_section(section_name)
                   .get_or_create_test_case(test_name)
-                  .create_result(success: success, comment: comment)
+                  .create_result(success: success, comment: comment, elapsed: elapsed)
     end
 
     def submit_results
